@@ -15,13 +15,16 @@
 </page>
 
 <page stopPosition>
-^^игра с меняющимся положением стоп-сигнала
+^^ Игра с меняющимся положением стоп-сигнала
 </page>
 
 <page duration>
-^^игра с меняющимся временем демонстрации символа
+^^ Игра с меняющимся временем демонстрации символа
 </page>
 
+<page sound>
+^^ Игра с звуковым шумом
+</page>
 
 
 *Переменные:
@@ -91,6 +94,9 @@
 / durationcoef= values.stimduration/ values.baseduration
 </expressions>
 
+<sound noise>
+/ items = ("motor.wav")
+</sound>
 
 <picture target>
 /items = ("deer.jpg", "tank.jpg")
@@ -129,12 +135,6 @@
 /select = replace
 /selectionrate = always
 </counter>
-
-<list duratioms>
-/ items = (750,650,550,450)
-/ selectionmode = sequence
-</list>
-
 
 <list stopsignalpractice>
 /items = (0,1)
@@ -188,32 +188,22 @@
 </trial>
 
 *убираю это на время /correctmessage = true (markpressBeforeStop, 30) 
+
 <trial stop>
 / ontrialbegin = [values.ssd= values.averagert*list.ssdcoef.nextvalue*expressions.durationcoef]
 /stimulustimes = [0=focus, showscore, target]
 /validresponse = (anyresponse)
-/iscorrectresponse = [trial.stop.response != 0]
+/ correctresponse = (0)
 /timeout = values.ssd;
-/ontrialend = [if (trial.stop.correct == 1) {
-					values.score = values.score - 1;
-					values.errors = values.errors + 1;
-				}
-			  ]
-/branch = [if (trial.stop.correct != 1) trial.stopsignal; 
-			else{
-				if (values.block==1) trial.focuspractice
-				else trial.focus
-			}
-		  ]
+/branch = [trial.stopsignal]
 </trial>
 
 <trial stopsignal>
 /stimulustimes = [0 = StopSignal]
 /validresponse = (anyresponse)
-/iscorrectresponse = [trial.stopsignal.response != 0]
+/ correctresponse = (0)
 /timeout = (values.stimduration - values.ssd)
-/timeout = (values.stimduration - values.ssd)
-/ontrialend = [if (trial.stopsignal.correct == 1) {
+/ontrialend = [if ((trial.stopsignal.correct == 0)||(trial.stop.correct == 0)) {
 					values.score = values.score - 1;
 					values.errors = values.errors + 1;
 				}
@@ -224,21 +214,20 @@
 			  ]
 /branch = [if (values.block==1) trial.focuspractice
 			else trial.focus]
-			else trial.focus]
 </trial>
+
  
 <trial focusPractice>
 /ontrialbegin = [values.stiminterval = counter.stimulusinterval.selectedvalue]
-/stimulustimes = [0 = focus, showscore]
-/recorddata = false
 /ontrialbegin = [if ((trial.stim.count) == values.practicetrialnostop) 
 				values.averagert = values.rt_block/trial.stim.correctcount;]
+/stimulustimes = [0 = focus, showscore]
 /trialduration = values.stiminterval 
 /branch = [if (((trial.stim.count) >= values.practicetrialnostop)&&(list.stopsignalpractice.nextvalue == 1)) trial.stop;
 		  else trial.stim]
 </trial>
 
-* поменять вычисление среднего RT
+
 <block Practice>
 /screencolor = (63, 142, 186)
 /onblockbegin = [values.block=1;]
@@ -269,7 +258,7 @@
 </trial>
 
 <block stopSignalPosition>
-/screencolor = (63, 142, 186)
+/screencolor = (63, 142, 186) 
 /onblockbegin = [values.block=2]
 /onblockend = [ list.blockname.insertitem(block.stopsignalposition.name,values.block);
 				list.errors.insertitem(round((values.errors/values.trialnumber)*100),values.block );
@@ -289,8 +278,7 @@
 
 <block Duration>
 /screencolor = (63, 142, 186)
-/onblockbegin = [values.block=values.block+1;
-				 values.stimduration=values.stimduration-100;]
+/onblockbegin = [values.block=values.block+1;]
 /onblockend = [ list.blockname.insertitem(block.duration.name,values.block);
 				list.errors.insertitem(round((values.errors/values.trialnumber)*100),values.block );
 				list.successstop.insertitem(round((values.successss*100)/trial.stop.count),values.block);
@@ -300,6 +288,11 @@
 				values.errors=0;
 				values.successSS=0;
 				values.averagert = round(values.rt_sum/trial.stim.totalcorrectcount);
+				if(values.stimduration==450){
+					values.stimduration=750;
+				}else{
+					values.stimduration=values.stimduration-100;
+				}
 				if(list.errors.item(values.block)>25){
 					values.stimduration=750;
 					values.errorflag=1;
@@ -309,13 +302,34 @@
 			   ]
 /trials = [1 = focus]
 /preinstructions = (duration)
-/ postinstructions = (duration)
 /stop = [(trial.focus.count) > values.trialnumber]
 /skip =[values.errorflag==1]
 </block>
 
+<block soundNoise>
+/ bgstim = replace(sound.noise)
+/screencolor = (63, 142, 186)
+/onblockbegin = [values.block=values.block+1]
+/onblockend = [ list.blockname.insertitem(block.soundNoise.name,values.block);
+				list.errors.insertitem(round((values.errors/values.trialnumber)*100),values.block );
+				list.successstop.insertitem(round((values.successss*100)/trial.stop.count),values.block);
+				list.averagert.insertitem(round(values.rt_block/trial.stim.correctcount),values.block);
+				values.rt_sum=values.rt_sum+values.rt_block;
+				values.rt_block=0;
+				values.errors=0;
+				values.successSS=0;
+				values.averagert = round(values.rt_sum/trial.stim.totalcorrectcount);]
+/trials = [1 = focus]
+/preinstructions = (page.sound)
+/stop = [(trial.focus.count) > values.trialnumber]
+</block>
+
+<block >
+
+</block>
 
 <expt >
-/blocks = [1=Practice; 2=stopSignalPosition;3-5=Duration]
+/blocks = [1=Practice; 2=stopSignalPosition;3=soundNoise]
+/ stop = [ (((trial.stim.totalcount) == values.practicetrialnostop)&&(values.rt_block==0))]
 </expt>
 
