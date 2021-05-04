@@ -1,0 +1,321 @@
+﻿ *Описание стилей страниц инструкции
+<instruct>
+/fontstyle = ("Arial", 3.00%, false, false, false, false, 5, 204)
+/windowsize = (90%, 90%)
+/txcolor = (0,0,0)
+/screencolor = (227, 227, 227)
+/nextkey = (57)
+/lastlabel = "Нажмите на пробел"
+/inputdevice = keyboard
+</instruct>
+
+*Описание страницы инструкции для тестовой игры
+<page practice>
+^^ Тестовая игра 
+</page>
+
+<page stopPosition>
+^^игра с меняющимся положением стоп-сигнала
+</page>
+
+<page duration>
+^^игра с меняющимся временем демонстрации символа
+</page>
+
+
+
+*Переменные:
+*trialnumber - кол-во испытаний в блоке 
+*practicetrialnumber - кол-во испытаний в тестовой игре
+*practicetrialnostop - кол-во испытаний в тестовой игре без стоп-сигнала
+*practicetrialstop - кол-во стоп-сигналов в тестовой игре 
+*stiminterval - время между демонстрацией целевых стимулов
+*stimduration - время демонстрации целевого стимула ( может меняться)
+*baseduration - время по умолчанию 
+*AverageRTpractice - среднее время ответа на целевой стимул в тестовой игре
+*stopvert-положение стоп сигнала по вертикали
+*stophor- положение стоп сигнала по горизонтали
+*score - счёт
+*block - номер блока 
+*succesSS - кол-во успешных торможений в блоке 
+*errors -кол-во ошибок в блоке
+*rt_sum- сумма всех реакций при испытаниях stim
+*rt_block- сумма реакций в блоке при испытаниях stim
+*nblocks - максимальное предполагаемое кол-во блоков (сколько блоков будет точно сказать нельзя, так как их кол-во может меняться, 
+														в зависимости от процента допущенных ошибок)
+*errorFlag - флаг, который показывает, когда % ошибок больше 25%
+
+<values>
+/trialnumber = 10
+/practicetrialnumber=10
+/practicetrialnostop=3
+/score = 0
+/stiminterval=0
+/averageRT = 0 
+/stimduration =750
+/baseduration=750
+/SSD=0
+/stopvert=50
+/stophor=50
+/block=0
+/successSS=0
+/rt_sum=0
+/rt_block=0
+/errors=0
+/nblocks=5
+/errorFlag=0
+</values>
+
+
+*лист будет содержать имена блоков
+<list blockName>
+/ poolsize = values.nblocks
+</list>
+
+*лист будет содержать % успешных торможение в каждом блоке 
+<list successStop>
+/ poolsize = values.nblocks
+</list>
+
+*лист будет содержать среднее время реакции в каждом блоке 
+<list averageRT>
+/ poolsize = values.nblocks
+</list>
+
+*лист будет содержать % ошибок в каждом блоке 
+<list errors>
+/ poolsize = values.nblocks
+</list>
+
+<expressions>
+/ durationcoef= values.stimduration/ values.baseduration
+</expressions>
+
+
+<picture target>
+/items = ("deer.jpg", "tank.jpg")
+/select = replace
+/valign = center
+/halign = center
+/erase = false
+</picture>
+
+<picture stopsignal>
+/items = ("stop.jpg")
+/vposition = values.stopvert
+/hposition = values.stophor
+</picture>
+
+<picture focus>
+/items = ("background-full.jpg")
+/valign = center
+/halign = center
+/size = (100%, 100%)
+/erase = false
+</picture>
+ 
+
+<text showscore>
+/items = ("<%values.score%>")
+/position = (53.5%, 93.5%)
+/txbgcolor = transparent
+/txcolor = (50,50,50)
+/fontstyle = ("Arial", 32pt, true)
+/erase = false
+</text>
+
+<counter stimulusinterval>
+/items = (3000,3500,4000,4500,5000)
+/select = replace
+/selectionrate = always
+</counter>
+
+<list duratioms>
+/ items = (750,650,550,450)
+/ selectionmode = sequence
+</list>
+
+
+<list stopsignalpractice>
+/items = (0,1)
+/itemprobabilities = (.6,.4)
+/poolsize = values.practicetrialnumber-values.practicetrialnostop
+/selectionmode=random
+/selectionrate = always
+</list>
+
+<list stopsignal>
+/items = (0,1)
+/itemprobabilities = (.75,.25)
+/poolsize = values.trialnumber
+/selectionmode=random
+/selectionrate = always
+</list>
+
+<list stopsignalposition>
+/items = (15,50,75)
+/itemprobabilities = uniform
+/poolsize = 30
+/selectionmode=random
+/selectionrate = always
+</list>
+
+<list ssdcoef>
+/items = (0.25,1.0,0.5)
+/itemprobabilities = (.25,.25,.5)
+/poolsize = 20
+/selectionmode = random
+/selectionrate = always
+</list>
+
+<trial stim>
+/stimulustimes = [0=focus, showscore, target]
+/validresponse = (anyresponse)
+/iscorrectresponse = [(picture.target.currentitem == "deer.jpg" && trial.stim.response == 32) 
+						|| (picture.target.currentitem == "tank.jpg" && trial.stim.response == 30)] 
+/timeout = values.stimduration
+/ontrialend = [if (trial.stim.correct == 1) {
+					 values.score = values.score + 1;
+					 values.rt_block=values.rt_block + trial.stim.latency;
+				}
+				else {
+					 values.score = values.score - 1;
+					 values.errors =values.errors + 1;
+				}
+			  ]
+/branch = [if (values.block==1) trial.focuspractice
+			else trial.focus]
+</trial>
+
+*убираю это на время /correctmessage = true (markpressBeforeStop, 30) 
+<trial stop>
+/ ontrialbegin = [values.ssd= values.averagert*list.ssdcoef.nextvalue*expressions.durationcoef]
+/stimulustimes = [0=focus, showscore, target]
+/validresponse = (anyresponse)
+/iscorrectresponse = [trial.stop.response != 0]
+/timeout = values.ssd;
+/ontrialend = [if (trial.stop.correct == 1) {
+					values.score = values.score - 1;
+					values.errors = values.errors + 1;
+				}
+			  ]
+/branch = [if (trial.stop.correct != 1) trial.stopsignal; 
+			else{
+				if (values.block==1) trial.focuspractice
+				else trial.focus
+			}
+		  ]
+</trial>
+
+<trial stopsignal>
+/stimulustimes = [0 = StopSignal]
+/validresponse = (anyresponse)
+/iscorrectresponse = [trial.stopsignal.response != 0]
+/timeout = (values.stimduration - values.ssd)
+/timeout = (values.stimduration - values.ssd)
+/ontrialend = [if (trial.stopsignal.correct == 1) {
+					values.score = values.score - 1;
+					values.errors = values.errors + 1;
+				}
+				else {
+					values.score = values.score + 1;
+					values.successSS=values.successSS +1;
+				}
+			  ]
+/branch = [if (values.block==1) trial.focuspractice
+			else trial.focus]
+			else trial.focus]
+</trial>
+ 
+<trial focusPractice>
+/ontrialbegin = [values.stiminterval = counter.stimulusinterval.selectedvalue]
+/stimulustimes = [0 = focus, showscore]
+/recorddata = false
+/ontrialbegin = [if ((trial.stim.count) == values.practicetrialnostop) 
+				values.averagert = values.rt_block/trial.stim.correctcount;]
+/trialduration = values.stiminterval 
+/branch = [if (((trial.stim.count) >= values.practicetrialnostop)&&(list.stopsignalpractice.nextvalue == 1)) trial.stop;
+		  else trial.stim]
+</trial>
+
+* поменять вычисление среднего RT
+<block Practice>
+/screencolor = (63, 142, 186)
+/onblockbegin = [values.block=1;]
+/onblockend = [ list.blockname.insertitem(block.practice.name,values.block);
+				list.errors.insertitem(round((values.errors/values.trialnumber)*100),values.block );
+				list.successstop.insertitem(round((values.successss*100)/trial.stop.count),values.block);
+				list.averagert.insertitem(round(values.rt_block/trial.stim.correctcount),values.block);
+				values.rt_sum=values.rt_sum+values.rt_block;
+				values.rt_block=0;
+				values.errors=0;
+				values.successSS=0;
+				values.averagert = round(values.rt_sum/trial.stim.totalcorrectcount);]
+/trials = [1 = focusPractice]
+/preinstructions = (practice)
+/stop = [(trial.focuspractice.count) > values.practicetrialnumber]
+</block>
+
+<trial focus>
+/ontrialbegin = [values.stiminterval = counter.stimulusinterval.selectedvalue]
+/ontrialbegin = [if(values.block==2){
+				values.stophor=list.stopsignalposition.nextvalue;
+				values.stopvert=list.stopsignalposition.nextvalue;}]
+/stimulustimes = [0 = focus, showscore]
+
+/trialduration = values.stiminterval 
+/branch = [if (list.stopsignal.nextvalue == 1) trial.stop;
+		  else trial.stim]
+</trial>
+
+<block stopSignalPosition>
+/screencolor = (63, 142, 186)
+/onblockbegin = [values.block=2]
+/onblockend = [ list.blockname.insertitem(block.stopsignalposition.name,values.block);
+				list.errors.insertitem(round((values.errors/values.trialnumber)*100),values.block );
+				list.successstop.insertitem(round((values.successss*100)/trial.stop.count),values.block);
+				list.averagert.insertitem(round(values.rt_block/trial.stim.correctcount),values.block);
+				values.rt_sum=values.rt_sum+values.rt_block;
+				values.rt_block=0;
+				values.errors=0;
+				values.successSS=0;
+				values.averagert = round(values.rt_sum/trial.stim.totalcorrectcount);
+				values.stophor=50;
+				values.stopvert=50;]
+/trials = [1 = focus]
+/preinstructions = (stopPosition)
+/stop = [(trial.focus.count) > values.trialnumber]
+</block>
+
+<block Duration>
+/screencolor = (63, 142, 186)
+/onblockbegin = [values.block=values.block+1;
+				 values.stimduration=values.stimduration-100;]
+/onblockend = [ list.blockname.insertitem(block.duration.name,values.block);
+				list.errors.insertitem(round((values.errors/values.trialnumber)*100),values.block );
+				list.successstop.insertitem(round((values.successss*100)/trial.stop.count),values.block);
+				list.averagert.insertitem(round(values.rt_block/trial.stim.correctcount),values.block);
+				values.rt_sum=values.rt_sum+values.rt_block;
+				values.rt_block=0;
+				values.errors=0;
+				values.successSS=0;
+				values.averagert = round(values.rt_sum/trial.stim.totalcorrectcount);
+				if(list.errors.item(values.block)>25){
+					values.stimduration=750;
+					values.errorflag=1;
+				}
+				else 
+					values.errorflag=0;
+			   ]
+/trials = [1 = focus]
+/preinstructions = (duration)
+/ postinstructions = (duration)
+/stop = [(trial.focus.count) > values.trialnumber]
+/skip =[values.errorflag==1]
+</block>
+
+
+<expt >
+/blocks = [1=Practice; 2=stopSignalPosition;3-5=Duration]
+</expt>
+
