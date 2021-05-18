@@ -26,6 +26,11 @@
 ^^ Игра с звуковым шумом
 </page>
 
+<page targets>
+^^ Игра с дополнительным стимулом 
+</page>
+
+
 
 *Переменные:
 *trialnumber - кол-во испытаний в блоке 
@@ -67,6 +72,7 @@
 /errors=0
 /nblocks=5
 /errorFlag=0
+/targets=1
 </values>
 
 
@@ -97,6 +103,10 @@
 <sound noise>
 / items = ("motor.wav")
 </sound>
+<item targets>
+/1="cat.png"
+</item>
+
 
 <picture target>
 /items = ("deer.jpg", "tank.jpg")
@@ -172,7 +182,8 @@
 /stimulustimes = [0=focus, showscore, target]
 /validresponse = (anyresponse)
 /iscorrectresponse = [(picture.target.currentitem == "deer.jpg" && trial.stim.response == 32) 
-						|| (picture.target.currentitem == "tank.jpg" && trial.stim.response == 30)] 
+						|| (picture.target.currentitem == "tank.jpg" && trial.stim.response == 30)
+						|| (picture.target.currentitem == "cat.png" && trial.stim.response == 17)] 
 /timeout = values.stimduration
 /ontrialend = [if (trial.stim.correct == 1) {
 					 values.score = values.score + 1;
@@ -255,6 +266,7 @@
 /trialduration = values.stiminterval 
 /branch = [if (list.stopsignal.nextvalue == 1) trial.stop;
 		  else trial.stim]
+		  
 </trial>
 
 <block stopSignalPosition>
@@ -324,12 +336,23 @@
 /stop = [(trial.focus.count) > values.trialnumber]
 </block>
 
-<block >
-
+<block ManyTargets>
+/screencolor = (63, 142, 186)
+/ onblockbegin = [picture.target.appenditem(item.targets.item(values.targets));
+				 values.block=values.block+1;]
+/trials = [1 = focus]
+/preinstructions = (page.targets)
+/stop = [(trial.focus.count) > values.trialnumber]
 </block>
 
+3-6= Duration; 7=soundNoise
 <expt >
-/blocks = [1=Practice; 2=stopSignalPosition;3=soundNoise]
+/blocks = [1=Practice; 2=stopSignalPosition; 3=ManyTargets]
 / stop = [ (((trial.stim.totalcount) == values.practicetrialnostop)&&(values.rt_block==0))]
 </expt>
 
+<data>
+/columns = [date, time, group,subject, blockcode,trialcode, picture.target.currentitem,values.stiminterval, 
+			latency, response, correct,values.score, values.stimduration, values.SSD, values.averageRT,values.errors]
+/format = tab
+</data>
