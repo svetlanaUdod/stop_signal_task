@@ -1,7 +1,0 @@
-date	time	group	subject	blockcode	trialcode	picture.target.currentitem	values.stiminterval	latency	response	correct	values.score	values.stimduration	values.SSD	values.averageRT	values.errors
-051621	17:54:02	1	8	Practice	focusPractice	deer.jpg	4000	4000	0	0	0	750	0	0	0
-051621	17:54:02	1	8	Practice	stim	deer.jpg	4000	57	81	0	-1	750	0	0	1
-051621	17:54:02	1	8	Practice	focusPractice	deer.jpg	3000	3000	0	0	-1	750	0	0	1
-051621	17:54:02	1	8	Practice	stim	tank.jpg	3000	48	60	0	-2	750	0	0	2
-051621	17:54:02	1	8	Practice	focusPractice	tank.jpg	4000	4000	0	0	-2	750	0	0	2
-051621	17:54:02	1	8	Practice	stim	tank.jpg	4000	46	140	0	-3	750	0	0	3
