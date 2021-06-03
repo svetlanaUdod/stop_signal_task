@@ -1,0 +1,502 @@
+﻿ *Описание стилей страниц инструкции
+<instruct>
+/fontstyle = ("Arial", 3.00%, false, false, false, false, 5, 204)
+/windowsize = (90%, 90%)
+/txcolor = (0,0,0)
+/screencolor = (227, 227, 227)
+/nextkey = (57)
+/lastlabel = "Нажмите на пробел"
+/inputdevice = keyboard
+</instruct>s
+
+*Описание страницы инструкции для тестовой игры
+<page practice>
+^^ 					ИГРА СТОП-СИГНАЛ
+^^	В течение игры на экране будут появляться изображения - либо тигр, либо заяц. Вам нужно выбрать правильное питание 
+для каждого животного: морковка для зайца (кнопка A) и мясо для тигра (кнопка D).
+Также нужно успеть покормить их до того, как они скроются из виду.
+^^	В некоторых случаях поверх картинки будет появляться сигнал "СТОП", тогда следует прекратить любые действия
+(при сигнале "СТОП" животных кормить нельзя).
+^^	Если вы успешно покормили животного, то это принесет вам очки.
+В случае ошибок (неправильный выбор еды или кормление при появлении сигнала "СТОП") очки будут сниматься.
+^^	Постарайтесь набрать как можно больше баллов.
+^^	Нажмите на пробел, когда будете готовы приступить к игре.
+</page>
+
+<page stopPosition>
+^^ 			ИГРА С ИЗМЕНЕНИЕМ ПОЛОЖЕНИЯ СТОП-СИГНАЛА
+^^	В течение игры на экране также будут появляться изображения - либо тигр, либо заяц. Вам нужно также выбрать правильное питание 
+для каждого животного: морковка для зайца (кнопка A) и мясо для тигра (кнопка D).
+^^	В некоторых случаях в различных местах экрана будет появляться сигнал "СТОП", тогда следует прекратить любые действия
+(при сигнале "СТОП" животных кормить нельзя).
+^^	Если вы успешно покормили животного, то это принесет вам очки.
+В случае ошибок (неправильный выбор еды или кормление при появлении сигнала "СТОП") очки будут сниматься.
+^^	Постарайтесь набрать как можно больше баллов.
+^^	Нажмите на пробел, когда будете готовы приступить к игре.
+</page>
+
+<page duration>
+^^			ИГРА С ВРЕМЕНЕМ ДЕМОНСТРАЦИИ ЖИВОТНОГО <%values.stimduration%>ms.
+^^	В течение игры на экране также будут появляться изображения - либо тигр, либо заяц.
+Вам нужно будет выбрать правильное питание для каждого животного: морковка для зайца (кнопка A) и мясо для тигра (кнопка D). 
+^^	В некоторых случаях поверх картинки будет появляться сигнал "СТОП", тогда следует прекратить любые действия
+(при сигнале "СТОП" животных кормить нельзя).
+^^	Если вы успешно покормили животного, то это принесет вам очки.
+В случае ошибок (неправильный выбор еды или кормление при появлении сигнала "СТОП") очки будут сниматься.
+^^	Постарайтесь набрать как можно больше баллов.
+^^	Нажмите на пробел, когда будете готовы приступить к игре.
+</page>
+
+<page sound>
+^^					ИГРА С ФОНОВЫМ ШУМОМ
+^^	В течение игры на экране также будут появляться изображения - либо тигр, либо заяц.
+Вам нужно будет выбрать правильное питание для каждого животного: морковка для зайца (кнопка A) и мясо для тигра (кнопка D). 
+^^	В некоторых случаях поверх картинки будет появляться сигнал "СТОП", тогда следует прекратить любые действия
+(при сигнале "СТОП" животных кормить нельзя).
+^^	Если вы успешно покормили животного, то это принесет вам очки.
+В случае ошибок (неправильный выбор еды или кормление при появлении сигнала "СТОП") очки будут сниматься.
+^^	Постарайтесь набрать как можно больше баллов, не обращая внимания на фоновый шум.
+^^	Нажмите на пробел, когда будете готовы приступить к игре.
+</page>
+
+<page targets_i>
+^^				 ИГРА <% item.target_instruct.item(values.targets)%> 
+^^	В течение игры на экране будут появляться изображения - тигр, <% item.target_animal.item(values.targets)%>заяц.
+Вам нужно будет выбрать правильное питание для каждого животного: морковка для зайца (кнопка A), <% item.target_food.item(values.targets)%>
+мясо для тигра (кнопка D). 
+^^	В некоторых случаях поверх картинки будет появляться сигнал "СТОП", тогда следует прекратить любые действия
+(при сигнале "СТОП" животных кормить нельзя).
+^^	Если вы успешно покормили животного, то это принесет вам очки.
+В случае ошибок (неправильный выбор еды или кормление при появлении сигнала "СТОП") очки будут сниматься.
+^^	Постарайтесь набрать как можно больше баллов.
+^^	Нажмите на пробел, когда будете готовы приступить к игре.
+</page>
+<page end_exp>
+^^	Название блока: среднееRT, % ошибки, % успешных торможений
+^	<%list.blockName.item(1)%> <%list.averageRT.item(1)%>  <%list.errors.item(1)%> <%list.successStop.item(1)%>
+^	<%list.blockName.item(2)%> <%list.averageRT.item(2)%>  <%list.errors.item(2)%> <%list.successStop.item(2)%>
+^	<%list.blockName.item(3)%> <%list.averageRT.item(3)%>  <%list.errors.item(3)%> <%list.successStop.item(3)%>
+^	<%list.blockName.item(4)%> <%list.averageRT.item(4)%>  <%list.errors.item(4)%> <%list.successStop.item(4)%>
+^	<%list.blockName.item(5)%> <%list.averageRT.item(5)%>  <%list.errors.item(5)%> <%list.successStop.item(5)%>
+^	<%list.blockName.item(6)%> <%list.averageRT.item(6)%>  <%list.errors.item(6)%> <%list.successStop.item(6)%>
+^	<%list.blockName.item(7)%> <%list.averageRT.item(7)%>  <%list.errors.item(7)%> <%list.successStop.item(7)%>
+^	<%list.blockName.item(8)%> <%list.averageRT.item(8)%>  <%list.errors.item(8)%> <%list.successStop.item(8)%>
+^	<%list.blockName.item(9)%> <%list.averageRT.item(9)%>  <%list.errors.item(9)%> <%list.successStop.item(9)%>
+^	<%list.blockName.item(10)%> <%list.averageRT.item(10)%>  <%list.errors.item(10)%> <%list.successStop.item(10)%>
+^	<%list.blockName.item(11)%> <%list.averageRT.item(11)%>  <%list.errors.item(11)%> <%list.successStop.item(11)%>
+^^	максимальное кол-во стимулов: <%values.maxstims%>
+^	минимальное время демонстрации стимулов: <%values.mindurat%>
+</page>
+
+
+*Переменные:
+*trialnumber - кол-во испытаний в блоке 
+*practicetrialnumber - кол-во испытаний в тестовой игре
+*practicetrialnostop - кол-во испытаний в тестовой игре без стоп-сигнала
+*practicetrialstop - кол-во стоп-сигналов в тестовой игре 
+*stiminterval - время между демонстрацией целевых стимулов
+*stimduration - время демонстрации целевого стимула ( может меняться)
+*baseduration - время по умолчанию 
+*AverageRTpractice - среднее время ответа на целевой стимул в тестовой игре
+*stopvert-положение стоп сигнала по вертикали
+*stophor- положение стоп сигнала по горизонтали
+*score - счёт
+*block - номер блока 
+*succesSS - кол-во успешных торможений в блоке 
+*errors -кол-во ошибок в блоке
+*rt_sum- сумма всех реакций при испытаниях stim
+*rt_block- сумма реакций в блоке при испытаниях stim
+*nblocks - максимальное предполагаемое кол-во блоков (сколько блоков будет точно сказать нельзя, так как их кол-во может меняться, 
+														в зависимости от процента допущенных ошибок)
+*errorFlag - флаг, который показывает, когда % ошибок больше 25%  в блоке Duration
+*errorFlagT - флаг, который показывает, когда % ошибок больше 25%  в блоке ManyTarget
+*targets - позиция нового целевого стимула в item.targets
+
+<values>
+/trialnumber = 10
+/practicetrialnumber=10
+/practicetrialnostop=3
+/score = 0
+/stiminterval=0
+/averageRT = 0 
+/stimduration =750
+/baseduration=750
+/SSD=0
+/stopvert=50
+/stophor=50
+/block=0
+/successSS=0
+/rt_sum=0
+/rt_block=0
+/errors=0
+/nblocks=5
+/errorFlag=0
+/errorFlagT=0
+/targets=1
+/blockname= ""
+/ssdcoef=0
+/countRT=0
+/maxstims="не вычислено"
+/mindurat="не вычислено"
+/stopcount=0
+</values>
+
+
+*лист будет содержать имена блоков
+<list blockName>
+/ poolsize = values.nblocks
+</list>
+
+*лист будет содержать % успешных торможение в каждом блоке 
+<list successStop>
+/ poolsize = values.nblocks
+</list>
+
+*лист будет содержать среднее время реакции в каждом блоке 
+<list averageRT>
+/ poolsize = values.nblocks
+</list>
+
+*лист будет содержать % ошибок в каждом блоке 
+<list errors>
+/ poolsize = values.nblocks
+</list>
+
+<expressions>
+/ durationcoef= values.stimduration/ values.baseduration
+/errorper=round((values.errors/values.trialnumber)*100)
+</expressions>
+
+<sound noise>
+/ items = ("motor.wav")
+</sound>
+
+<item targets>
+/1=""
+/2="bird.jpg"
+/3="penguin.jpg"
+/4="mouse.jpg"
+</item>
+
+<item target_instruct>
+/1="СТОП-СИГНАЛ"
+/2="С ДОПОЛНИТЕЛЬНЫМ ЖИВОТНЫМ"
+/3="С ДОПОЛНИТЕЛЬНЫМИ ЖИВОТНЫМИ"
+/4="С ДОПОЛНИТЕЛЬНЫМИ ЖИВОТНЫМИ"
+</item> 
+
+<item target_focus>
+/1=""
+/2="background-1.jpg"
+/3="background-2.jpg"
+/4="background-3.jpg"
+</item>
+
+<item target_animal>
+/1=""
+/2="птица, "
+/3="птица, пингвин, "
+/4="птица, пингвин, мышь, "
+</item>
+
+<item target_food>
+/1=""
+/2="семечки для птицы (кнопка W),  "
+/3="семечки для птицы (кнопка W), рыба для пингвина (кнопка S), "
+/4="семечки для птицы (кнопка W), рыба для пингвина (кнопка S), сыр для мышки (кнопка Enter), "
+</item>
+
+<picture target>
+/items = ("rabbit.jpg", "tiger.jpg")
+/select = replace
+/valign = center
+/halign = center
+/erase = false
+</picture>
+
+<picture stopsignal>
+/items = ("stop.jpg")
+/vposition = values.stopvert
+/hposition = values.stophor
+</picture>
+
+<picture focus>
+/items = ("background-full.jpg")
+/valign = center
+/halign = center
+/size = (100%, 100%)
+/erase = false
+</picture>
+ 
+
+<text showscore>
+/items = (" Счёт: <%values.score%>")
+/position = (50%, 90%)
+/txbgcolor = transparent
+/txcolor = (255, 255, 255)
+/fontstyle = ("Arial", 32pt, true)
+/erase = false
+</text>
+
+<counter stimulusinterval>
+/items = (3000,3500,4000,4500,5000)
+/select = replace
+/selectionrate = always
+</counter>
+
+<list stopsignalpractice>
+/items = (0,1)
+/itemprobabilities = (.6,.4)
+/poolsize = values.practicetrialnumber-values.practicetrialnostop
+/selectionmode=random
+/selectionrate = always
+</list>
+
+<list stopsignal>
+/items = (0,1)
+/itemprobabilities = (.75,.25)
+/poolsize = values.trialnumber
+/selectionmode=random
+/selectionrate = always
+</list>
+
+<list stopsignalposition>
+/items = (15,50,75)
+/itemprobabilities = uniform
+/poolsize = 30
+/selectionmode=random
+/selectionrate = always
+</list>
+
+<list ssdcoef>
+/items = (0.25,1.0,0.5)
+/itemprobabilities = (.25,.25,.5)
+/poolsize = 20
+/selectionmode = random
+/selectionrate = always
+</list>
+
+<trial stim>
+/stimulustimes = [0=focus, showscore, target]
+/validresponse = (anyresponse)
+/iscorrectresponse = [(picture.target.currentitem == "tiger.jpg" && trial.stim.response == 32) 
+						|| (picture.target.currentitem == "rabbit.jpg" && trial.stim.response == 30)
+						|| (picture.target.currentitem == "bird.jpg" && trial.stim.response == 17)
+						|| (picture.target.currentitem == "penguin.jpg" && trial.stim.response == 31)
+						|| (picture.target.currentitem == "mouse.jpg" && trial.stim.response == 28)] 
+/timeout = values.stimduration
+/ontrialend = [if (trial.stim.correct == 1) {
+					 values.score = values.score + 1;
+					 values.rt_block=values.rt_block + trial.stim.latency;
+					 values.countRT=values.countRT+1;
+				}
+				else {
+					 values.score = values.score - 1;
+					 values.errors =values.errors + 1;
+				}
+			  ]
+/branch = [if (values.block==1) trial.focuspractice
+			else trial.focus]
+</trial>
+
+*убираю это на время /correctmessage = true (markpressBeforeStop, 30) 
+
+<trial stop>
+/ ontrialbegin = [	values.ssdcoef=list.ssdcoef.nextvalue;
+					values.ssd= values.averagert*values.ssdcoef*expressions.durationcoef;
+					values.stopcount=values.stopcount+1;]
+/stimulustimes = [0=focus, showscore, target]
+/validresponse = (anyresponse)
+/ correctresponse = (0)
+/timeout = values.ssd;
+/branch = [trial.stopsignal]
+</trial>
+
+<trial stopsignal>
+/stimulustimes = [0 = StopSignal]
+/validresponse = (anyresponse)
+/ correctresponse = (0)
+/timeout = (values.stimduration - values.ssd)
+/ontrialend = [if ((trial.stopsignal.correct == 0)||(trial.stop.correct == 0)) {
+					values.score = values.score - 1;
+					values.errors = values.errors + 1;
+				}
+				else {
+					values.score = values.score + 1;
+					values.successSS=values.successSS +1;
+				}
+			  ]
+/branch = [if (values.block==1) trial.focuspractice
+			else trial.focus]
+</trial>
+
+ 
+<trial focusPractice>
+/ontrialbegin = [values.stiminterval = counter.stimulusinterval.selectedvalue]
+/ontrialbegin = [if ((trial.stim.count) == values.practicetrialnostop) 
+				values.averagert = values.rt_block/trial.stim.correctcount;]
+/stimulustimes = [0 = focus, showscore]
+/trialduration = values.stiminterval 
+/branch = [if (((trial.stim.count) >= values.practicetrialnostop)&&(list.stopsignalpractice.nextvalue == 1)) trial.stop;
+		  else trial.stim]
+</trial>
+
+
+<block Practice>
+/screencolor = (202, 210,187)
+/onblockbegin = [values.block=1;
+				values.blockname=block.practice.name;]
+/onblockend = [ list.blockname.insertitem(values.blockname,values.block);
+				list.errors.insertitem(round((values.errors/values.trialnumber)*100),values.block );
+				list.successstop.insertitem(round((values.successss*100)/trial.stop.count),values.block);
+				list.averagert.insertitem(round(values.rt_block/trial.stim.correctcount),values.block);
+				values.rt_sum=values.rt_sum+values.rt_block;
+				values.rt_block=0;
+				values.errors=0;
+				values.successSS=0;
+				values.averagert = round(values.rt_sum/trial.stim.totalcorrectcount);]
+/trials = [1 = focusPractice]
+/preinstructions = (practice)
+/stop = [(trial.focuspractice.count) > values.practicetrialnumber]
+</block>
+
+<trial focus>
+/ontrialbegin = [values.stiminterval = counter.stimulusinterval.selectedvalue]
+/ontrialbegin = [if(values.blockname=="stopSignalPosition"){
+				values.stophor=list.stopsignalposition.nextvalue;
+				values.stopvert=list.stopsignalposition.nextvalue;}]
+/stimulustimes = [0 = focus, showscore]
+
+/trialduration = values.stiminterval 
+/branch = [if (list.stopsignal.nextvalue == 1) trial.stop;
+		  else trial.stim]
+		  
+</trial>
+
+<block stopSignalPosition>
+/screencolor = (202, 210,187)
+/onblockbegin = [values.block=values.block+1;
+				values.blockname=block.stopsignalposition.name;]
+/onblockend = [ list.blockname.insertitem(values.blockname,values.block);
+				list.errors.insertitem(round((values.errors/values.trialnumber)*100),values.block );
+				list.successstop.insertitem(round((values.successss*100)/trial.stop.count),values.block);
+				list.averagert.insertitem(round(values.rt_block/trial.stim.correctcount),values.block);
+				values.rt_sum=values.rt_sum+values.rt_block;
+				values.rt_block=0;
+				values.errors=0;
+				values.successSS=0;
+				values.averagert = round(values.rt_sum/trial.stim.totalcorrectcount);
+				values.stophor=50;
+				values.stopvert=50;]
+/trials = [1 = focus]
+/preinstructions = (stopPosition)
+/stop = [(trial.focus.count) > values.trialnumber]
+</block>
+
+<block Duration>
+/screencolor = (202, 210,187)
+/onblockbegin = [values.block=values.block+1;
+				values.blockname=block.duration.name;
+				values.countRT=0;
+				values.stopcount=0;]
+/onblockend = [ if( expressions.errorper>40){
+					values.stimduration=750;
+					values.errorflag=1;
+				}else{
+					values.mindurat="<%values.stimduration%>"
+					}
+				list.blockname.insertitem(values.blockname,values.block);
+				list.errors.insertitem(expressions.errorper,values.block );
+				list.successstop.insertitem(round((values.successss*100)/values.stopcount),values.block);
+				list.averagert.insertitem(round(values.rt_block/values.countRT),values.block);
+				values.rt_sum=values.rt_sum+values.rt_block;
+				values.rt_block=0;
+				values.errors=0;
+				values.successSS=0;
+				values.averagert = round(values.rt_sum/trial.stim.totalcorrectcount);
+				values.stimduration=values.stimduration-100;
+				if(values.stimduration<450){
+					values.stimduration=750;
+					values.errorFlag=1;
+				}
+			   ]
+/trials = [1 = focus]
+/preinstructions = (duration)
+/stop = [(trial.focus.count) > values.trialnumber]
+/skip =[(values.errorflag==1)]
+</block>
+
+<block soundNoise>
+/bgstim = replace(noise)
+/screencolor = (202, 210,187)
+/onblockbegin = [values.block=values.block+1;
+				values.blockname=block.soundNoise.name;]
+/onblockend = [ list.blockname.insertitem(values.blockname,values.block);
+				list.errors.insertitem(round((values.errors/values.trialnumber)*100),values.block );
+				list.successstop.insertitem(round((values.successss*100)/trial.stop.count),values.block);
+				list.averagert.insertitem(round(values.rt_block/trial.stim.correctcount),values.block);
+				values.rt_sum=values.rt_sum+values.rt_block;
+				values.rt_block=0;
+				values.errors=0;
+				values.successSS=0;
+				values.averagert = round(values.rt_sum/trial.stim.totalcorrectcount);]
+/trials = [1 = focus]
+/preinstructions = (sound)
+/stop = [(trial.focus.count) > values.trialnumber]
+</block>
+
+<block ManyTargets>
+/screencolor = (202, 210,187)
+/onblockbegin = [	values.block=values.block+1;
+					values.blockname= block.ManyTargets.name;
+					values.countRT=0;
+					values.stopcount=0;
+					if ((values.targets!=1)&&(values.targets<=item.targets.itemcount)){
+						picture.target.appenditem(item.targets.item(values.targets));
+						picture.focus.clearitems();
+						picture.focus.appenditem(item.target_focus.item(values.targets));
+					} 
+				]
+/ onblockend = [values.targets=values.targets+1;
+				if(expressions.errorper>50){
+					values.errorFlagT=1;
+					picture.target.clearitems();
+					picture.target.insertitem("rabbit.jpg",1);
+					picture.target.insertitem( "tiger.jpg",2);
+				}else{
+					values.maxstims=" <%values.targets%>"
+				}
+				list.blockname.insertitem(values.blockname,values.block);
+				list.errors.insertitem(expressions.errorper,values.block );
+				list.successstop.insertitem(round((values.successss*100)/values.stopcount),values.block);
+				list.averagert.insertitem(round(values.rt_block/values.countRT),values.block);
+				values.rt_sum=values.rt_sum+values.rt_block;
+				values.rt_block=0;
+				values.errors=0;
+				values.successSS=0;
+				values.averagert = round(values.rt_sum/trial.stim.totalcorrectcount);
+				picture.focus.clearitems();
+				picture.focus.appenditem("background-full.jpg");
+				if(values.targets>item.targets.itemcount){
+					picture.target.clearitems();
+					picture.target.insertitem("rabbit.jpg",1);
+					picture.target.insertitem( "tiger.jpg",2);
+				}]
+/trials = [1 = focus]
+/preinstructions = (targets_i)
+/stop = [(trial.focus.count) > values.trialnumber]
+/skip = [(values.targets>item.targets.itemcount)|| (values.errorFlagT==1)]
+</block>
+
+
+<expt >
+/blocks = [1=Practice; 2-5=ManyTargets; 6=stopSignalPosition; 7-10= Duration; 11=soundNoise]
+/ stop = [ (((trial.stim.totalcount) == values.practicetrialnostop)&&(values.rt_block==0))]
+/ postinstructions = (end_exp)
+</expt>
+
+<data>
+/columns = [date, time, group,subject, blockcode,trialcode, picture.target.currentitem,values.stiminterval, values.stimduration
+			latency, response, correct,values.score, values.ssdcoef, values.SSD, values.averageRT,values.errors]
+/format = tab
+</data>
